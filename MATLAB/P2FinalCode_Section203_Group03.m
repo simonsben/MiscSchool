@@ -13,7 +13,7 @@ sec = []; %Initializing array for number of people per sector
 
 %Declaring number of Robots and itterations
 nbots = 30; %Number of robots
-nitts = 3; %Number of itterations
+nitts = 6; %Number of itterations
 
 %Generating random start positions
 for i = 1:nbots
@@ -123,6 +123,7 @@ for itt = 1:nitts
     %% Calculating coverage on each itteration
     %Declaring all zero array same size as total area
     cov = zeros(length(m(:,1)), length(m(1,:)));
+    area = zeros(length(m(:,1)), length(m(1,:)));
     
     for i = 1:nbots
         %Generating and plotting 'coverage' region around each drone
@@ -134,13 +135,16 @@ for itt = 1:nitts
             for k = 1:length(ypt)
                 if(inpolygon(xpt(j), ypt(k), bits(:,1), bits(:,2)) && mm(k, j) > 1)
                     cov(k, j) = 1; 
+                    area(k, j) = 1;
+                elseif(mm(k, j) > 1)
+                    area(k, j) = 1;
                 end
             end
         end
     end
     
     %Coverage calculation
-    coverage(itt) = sum(sum(cov))/numel(cov) * 100;
+    coverage(itt) = sum(sum(cov))/sum(sum(area)) * 100;
     
     %% Plot formatting
     axis([0 length(mm(1,:)) 0 length(mm(:,1))])
@@ -152,14 +156,6 @@ for itt = 1:nitts
     Px = nx;
     Py = ny;
 end
-
-%Close excess plots
-for i = 2:(nitts - 1)
-    if(~find(i == keep))
-        close(i);
-    end
-end
-
 %% Plotting of other stats
 %Plot of number of people per regino
 figure
