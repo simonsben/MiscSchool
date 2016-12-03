@@ -13,12 +13,12 @@ sec = []; %Initializing array for number of people per sector
 
 %Declaring number of Robots and itterations
 nbots = 30; %Number of robots
-nitts = 6; %Number of itterations
+nitts = 50; %Number of itterations
 
 %Generating random start positions
 for i = 1:nbots
-    Px(i,1) = length(mm(1,:)) + 50*rand() - 50; %X position
-    Py(i,1) = length(mm(:,1))/2 + 50*rand() - 25; %Y Position
+    Px(i,1) = length(mm(1,:)) + 25*rand() - 25; %X position
+    Py(i,1) = length(mm(:,1))/2 + 25*rand() - 13; %Y Position
 end
 
 %Converting Initial x and y to combined vector
@@ -148,7 +148,7 @@ for itt = 1:nitts
     
     %% Plot formatting
     axis([0 length(mm(1,:)) 0 length(mm(:,1))])
-    title(['Itteratiion ' num2str(itt)]);
+    title(['Iteration ' num2str(itt)]);
     xlabel('Longitude');
     ylabel('Latitude');
     
